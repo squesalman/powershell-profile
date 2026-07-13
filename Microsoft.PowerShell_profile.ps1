@@ -522,10 +522,10 @@ function gpull { git pull @args }
 function gcl { git clone @args }
 
 function g {
-    if (Get-Command __zoxide_z -ErrorAction SilentlyContinue) {
+    if ((Get-Command __zoxide_z -ErrorAction SilentlyContinue) -and (zoxide query github 2>$null)) {
         __zoxide_z github
-    } elseif (Test-Path -Path "$HOME\github") {
-        Set-Location "$HOME\github"
+    } elseif (Test-Path -Path "$HOME/Documents/Projects") {
+        Set-Location "$HOME/Documents/Projects"
     }
 }
 
