@@ -75,6 +75,10 @@ $timeFilePath = if ($timeFilePath_Override) { $timeFilePath_Override } else { Jo
 $updateInterval = if ($null -ne $updateInterval_Override) { [int]$updateInterval_Override } else { 7 }
 $showHelpOnLaunch = if ($null -ne $show_help_Override) { [bool]$show_help_Override } else { $false }
 
+if (-not $env:POSH_THEME -and $env:POSH_THEMES_PATH) {
+    $env:POSH_THEME = Join-Path $env:POSH_THEMES_PATH '1_shell.omp.json'
+}
+
 function Debug-Message {
     if (Get-Command -Name 'Debug-Message_Override' -ErrorAction SilentlyContinue) {
         Debug-Message_Override
@@ -585,12 +589,13 @@ function Initialize-PSReadLine {
     }
 
     $options = @{
-        EditMode                    = 'Windows'
-        HistoryNoDuplicates        = $true
+        EditMode                      = 'Windows'
+        HistoryNoDuplicates           = $true
         HistorySearchCursorMovesToEnd = $true
-        PredictionSource           = 'History'
-        PredictionViewStyle        = 'ListView'
-        BellStyle                  = 'None'
+        PredictionSource              = 'History'
+        PredictionViewStyle           = 'ListView'
+        BellStyle                     = 'None'
+        ShowToolTips                  = $true
         Colors                     = @{
             Command   = '#87CEEB'
             Parameter = '#98FB98'
